@@ -141,8 +141,13 @@ class AuthenticateController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
+        $employee = Employee::query()
+                ->where('email',$request->email)
+                ->get(['id as employeeID'])
+                ->first();
+        $employeeID = $employee->employeeID;
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
+        return response()->json(compact('token','employeeID'));
         
     }
     
