@@ -9,7 +9,7 @@ class EmployeeManager extends Model
 {
     use SoftDeletes;
     
-    public function employee(){
+    public function salesMan(){
         
         return $this->belongsTo('App\Employee');
     }

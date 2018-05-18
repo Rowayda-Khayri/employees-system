@@ -33,10 +33,6 @@ class Employee extends Authenticatable
     
     //relations 
     
-    public function evaluations(){
-        
-        return $this->hasMany('App\Evaluation');
-    }
     
     public function position(){
         
@@ -48,12 +44,12 @@ class Employee extends Authenticatable
     
     public function salesMen(){
         
-        return $this->hasMany('App\Employee','manager_id');
+        return $this->hasMany('App\EmployeeManager','employee_id');
     }
     
-    public function manager(){
+    public function managers(){
         
-        return $this->belongsTo('App\Employee','manager_id');
+        return $this->hasMany('App\EmployeeManager','manager_id');
     }
     
 }
