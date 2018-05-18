@@ -46,7 +46,7 @@ class Employee extends Authenticatable
     
     //with itself
     
-    public function employees(){
+    public function salesMen(){
         
         return $this->hasMany('App\Employee','manager_id');
     }
