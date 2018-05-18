@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
 use App\Employee;
+use App\EmployeeManager;
 
 class AuthenticateController extends Controller
 {
@@ -103,10 +104,11 @@ class AuthenticateController extends Controller
                 
                 //create EmployeeManager instance
                 $employeeID = Employee::orderby('created_at', 'desc')->first();
-                $employeeManager['employee_id']=$employeeID;
+                $employeeManager['employee_id']=$employeeID->id;
                 $employeeManager['manager_id']=$request->managerID;
                 
-                
+                EmployeeManager::create($employeeManager);
+
                 
             }
             

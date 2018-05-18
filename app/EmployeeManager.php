@@ -9,6 +9,11 @@ class EmployeeManager extends Model
 {
     use SoftDeletes;
     
+    
+    protected $fillable = ['employee_id','manager_id'];
+    
+    protected $table = 'employees_managers';
+    
     public function salesMan(){
         
         return $this->belongsTo('App\Employee', 'employee_id');
