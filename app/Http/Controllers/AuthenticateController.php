@@ -63,7 +63,9 @@ class AuthenticateController extends Controller
             'email'            => 'required|email|unique:employees',     
             'password'         => 'required|min:6',
             'passwordConfirmation' => 'required|same:password',
-            'positionID' => 'required|',
+            'positionID' => 'required',
+            'managerID' => 'required_if:positionID,2',
+            
         );
 
         // do the validation ----------------------------------
@@ -95,13 +97,18 @@ class AuthenticateController extends Controller
             $newEmployee['name'] = $request->name;
             $newEmployee['position_id'] = $request->positionID;
             
+            Employee::create($newEmployee);
             
             if($request->positionID ==2){ //sales man
-                $newEmployee->manager_id = $request->managerID;
+                
+                //create EmployeeManager instance
+                $employeeID = Employee::orderby('created_at', 'desc')->first();
+                $employeeManager['employee_id']=$employeeID;
+                $employeeManager['manager_id']=$request->managerID;
+                
+                
                 
             }
-
-            Employee::create($newEmployee);
             
             return $this->login($request);
 
