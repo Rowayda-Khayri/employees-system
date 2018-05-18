@@ -15,8 +15,8 @@ class Evaluation extends Model
         return $this->belongsTo('App\Performance');
     }
     
-    public function employee(){
+    public function employeeManager(){
         
-        return $this->belongsTo('App\Employee');
+        return $this->belongsTo('App\EmployeeManager');
     }
 }
