@@ -30,4 +30,30 @@ class Employee extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    //relations 
+    
+    public function evaluations(){
+        
+        return $this->hasMany('App\Evaluation');
+    }
+    
+    public function position(){
+        
+        return $this->belongsTo('App\Position');
+    }
+    
+    
+    //with itself
+    
+    public function employees(){
+        
+        return $this->hasMany('App\Employee','manager_id');
+    }
+    
+    public function manager(){
+        
+        return $this->belongsTo('App\Employee','manager_id');
+    }
+    
 }
