@@ -13,24 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
-
-Route::get('/test', function () {
-    return "Hello";
-});
-
-Route::get('/forbidden', function () {
-    
-    return "Forbidden !";
-});
 
 /*****registration*****/
 
 Route::get('/register', 'AuthenticateController@showRegistrationForm');
 ////params : 
-//email , password , password_confirmation ,registration_token ,governorate_id
+// *name , *email , *password , *password_confirmation , *positionID , managerID(if positionID ==2)
 Route::post('/register', 'AuthenticateController@register');
 
 
@@ -38,7 +26,7 @@ Route::post('/register', 'AuthenticateController@register');
 
 Route::get('/login', 'AuthenticateController@showLoginForm');
 ////params : 
-//email , password , registration_token
+// *email , *password 
 Route::post('/login', 'AuthenticateController@login');
 
 /******logout******/

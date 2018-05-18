@@ -19,7 +19,7 @@ class Employee extends Authenticatable
      */
     protected $table = 'employees';
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'position_id', 'manager_id',
     ];
 
     /**
