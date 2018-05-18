@@ -17,6 +17,15 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
+Route::get('/test', function () {
+    return "Hello";
+});
+
+Route::get('/forbidden', function () {
+    
+    return "Forbidden !";
+});
+
 /*****registration*****/
 
 Route::get('/register', 'AuthenticateController@showRegistrationForm');
