@@ -11,11 +11,11 @@ class EmployeeManager extends Model
     
     public function salesMan(){
         
-        return $this->belongsTo('App\Employee');
+        return $this->belongsTo('App\Employee', 'employee_id');
     }
     public function manager(){
         
-        return $this->belongsTo('App\Employee');
+        return $this->belongsTo('App\Employee', 'manager_id');
     }
     
     public function evaluations(){
