@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
 use App\Employee;
+use App\EmployeeManager;
+use App\Evaluation;
 
 
 class ManagerController extends Controller
@@ -54,5 +56,74 @@ class ManagerController extends Controller
        return response()->json(compact('mySalesMen'));
        
    }
+   
+   
+   public function evaluateSalesManForm($id,JWTAuth $jwtAuth ){
+       
+       $salesMan = Employee::query()
+               ->where('id',$id)
+               ->get(['name',
+                   'id']);
+       
+       
+       return response()->json(compact('salesMan'));
+   }
+   
+   
+   public function evaluateSalesMan(Request $request, JWTAuth $jwtAuth ,$id ){
+       
+       
+       
+        $manager = $jwtAuth->toUser($jwtAuth->getToken());
+        
+       //validation 
+        
+        // create the validation rules ------------------------
+        $rules = array(                    
+            'performanceID'=> 'required',
+            
+        );
+        
+        
+        
+        // do the validation ----------------------------------
+        // validate against the inputs from our form
+        $validator = Validator::make(Input::all(), $rules);
+
+        // check if the validator failed ----------------------
+        if ($validator->fails()) {
+
+            // get the error messages from the validator
+
+            $errors = $validator->errors();
+
+            $errorsJSON =$errors->toJson();
+
+            return $errorsJSON;
+
+        } else {
+            
+            $employeeManager = EmployeeManager::query()
+                ->where('employee_id',$id)
+                ->where('manager_id',$manager->id)
+                ->get([
+                    'id'
+                ])->first();
+            
+//            dd($employeeManager);
+            $evaluation = new Evaluation();
+            $evaluation->employee_manager_id = $employeeManager->id;
+            $evaluation->performance_id = $request->performanceID;
+            $evaluation->save();
+            
+            
+            
+            return response()->json("evaluation is done ");
+       
+        }
+   }
+   
+   
+   
     
 }

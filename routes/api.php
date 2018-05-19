@@ -44,6 +44,11 @@ Route::post('/profile/update', 'ProfileController@updateProfile');
 /***********list manager's sales men***********/
 
 Route::get('/mySalesMen', 'ManagerController@listMySalesMen');
+Route::get('/mySalesMen/evaluate/{id}', 'ManagerController@evaluateSalesManForm');
+//params : 
+// * performance_id
+
+Route::post('/mySalesMen/evaluate/{id}', 'ManagerController@evaluateSalesMan');
 
 
 //////////////sales man routes /////////////
