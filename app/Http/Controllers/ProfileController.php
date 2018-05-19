@@ -12,6 +12,10 @@ use App\Http\Requests;
 use Response;
 
 
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+
 use App\Employee;
 
 class ProfileController extends Controller
@@ -45,5 +49,54 @@ class ProfileController extends Controller
        
    }
    
-   
+   public function updateProfile(JWTAuth $jwtAuth , Request $request){
+       
+        $employee = $jwtAuth->toUser($jwtAuth->getToken());
+        
+        //validation 
+        
+        // create the validation rules ------------------------
+        $rules = array(                    
+            'name'            => 'required',
+            'email' => 'required|email',
+            
+            
+        );
+        
+        
+        
+        // do the validation ----------------------------------
+        // validate against the inputs from our form
+        $validator = Validator::make(Input::all(), $rules);
+
+        // check if the validator failed ----------------------
+        if ($validator->fails()) {
+
+            // get the error messages from the validator
+
+            $errors = $validator->errors();
+
+            $errorsJSON =$errors->toJson();
+
+            return $errorsJSON;
+
+        } else {
+            
+            $employeeData = Employee::find($employee->id);
+            
+            $employeeData->name = $request->name;
+            $employeeData->email = $request->email;
+            $employeeData->updated_at = new DateTime();
+            
+            $employeeData->save();
+            
+            return response()->json("Profile is updated ");
+       
+        }
+        
+        
+        
+        
+        
+   }
 }
