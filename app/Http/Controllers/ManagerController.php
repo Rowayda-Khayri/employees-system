@@ -48,7 +48,8 @@ class ManagerController extends Controller
         $mySalesMen = Employee::query()
                 ->leftjoin('employees_managers as em', 'em.employee_id', '=', 'employees.id')
                 ->where('em.manager_id',$manager->id)
-                ->get(['employees.name as salesManName']);
+                ->get(['employees.name as salesManName',
+                    'employees.id as salesManID']);
        
        return response()->json(compact('mySalesMen'));
        

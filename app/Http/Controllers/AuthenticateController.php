@@ -143,11 +143,11 @@ class AuthenticateController extends Controller
 
         $employee = Employee::query()
                 ->where('email',$request->email)
-                ->get(['id as employeeID'])
+                ->get(['position_id as employeePositionID'])
                 ->first();
-        $employeeID = $employee->employeeID;
+        $employeePositionID = $employee->employeePositionID;
         // if no errors are encountered we can return a JWT
-        return response()->json(compact('token','employeeID'));
+        return response()->json(compact('token','employeePositionID'));
         
     }
     
