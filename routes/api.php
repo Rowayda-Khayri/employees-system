@@ -39,3 +39,12 @@ Route::get('/profile/edit', 'ProfileController@editProfile');
 Route::post('/profile/update', 'ProfileController@updateProfile');
 
 
+///////////////manager routes //////////////
+
+/***********list manager's sales men***********/
+
+Route::get('/mySalesMen', 'ManagerController@listMySalesMen');
+
+
+//////////////sales man routes /////////////
+
