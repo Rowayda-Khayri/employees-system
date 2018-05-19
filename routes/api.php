@@ -53,3 +53,4 @@ Route::post('/mySalesMen/evaluate/{id}', 'ManagerController@evaluateSalesMan');
 
 //////////////sales man routes /////////////
 
+Route::get('/myEvaluations', 'SalesManController@listMyEvaluations');
