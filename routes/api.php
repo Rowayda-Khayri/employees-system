@@ -32,3 +32,10 @@ Route::post('/login', 'AuthenticateController@login');
 /******logout******/
 Route::get('/logout', 'AuthenticateController@logout');
 
+/********profile********/
+Route::get('/profile/edit', 'ProfileController@editProfile');
+////params : 
+// *token , *name , *email
+Route::post('/profile/update', 'ProfileController@updateProfile');
+
+
